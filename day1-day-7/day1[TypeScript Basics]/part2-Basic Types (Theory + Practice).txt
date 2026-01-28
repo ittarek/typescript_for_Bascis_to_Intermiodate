@@ -1,0 +1,248 @@
+Theory:
+TypeScript এ আমরা variables এর type  ডিফাইন (Define) করি যাতে bugs কম হয় ।
+ // JavaScript (No type safety)
+let name = "John";
+name = 123;  // কোনো error নেই, কিন্তু problem হতে পারে
+
+// TypeScript (Type safe)
+let name: string = "John";
+// name = 123;  // Error: Type 'number' is not assignable to type 'string'
+
+=========practice - 1 : Basic Types=============
+day1-basics.ts file বানান
+// ===== BASIC TYPES =====
+
+// 1. String
+let firstName: string = "John";
+let lastName: string = "Doe";
+let fullName: string = `${firstName} ${lastName}`;
+
+console.log(fullName);
+
+// 2. Number
+let age: number = 25;
+let price: number = 99.99;
+let total: number = age + price;
+
+console.log("Total:", total);
+
+// 3. Boolean
+let isStudent: boolean = true;
+let hasJob: boolean = false;
+
+console.log("Is Student:", isStudent);
+
+// 4. Array - Method 1
+let numbers: number[] = [1, 2, 3, 4, 5];
+
+// 5. Array - Method 2
+let names: Array<string> = ["Alice", "Bob", "Charlie"];
+
+// 6. Type Inference (TypeScript automatically determines type)
+let city = "Dhaka";  // TypeScript knows এটা string
+// city = 123;  // Error
+
+// 7. Any (avoid করা উচিত)
+let randomValue: any = 10;
+randomValue = "Hello";
+randomValue = true;  // No error, but not type safe
+
+এটা compile করুন:
+tsc day1-basics.ts
+node day1-basics.js
+
+
+=============practice 2: Objects & Interfaces==========
+day2-interfaces.ts file বানান:
+
+// ===== INTERFACES =====
+
+// Interface হলো object এর structure define করা
+interface Person {
+  name: string;
+  age: number;
+  email: string;
+}
+
+// Object তৈরি করা
+let user: Person = {
+  name: "John Doe",
+  age: 30,
+  email: "john@example.com"
+};
+
+console.log(user);
+
+// Function যা Person type parameter নেয়
+function greetPerson(person: Person): string {
+  return `Hello, ${person.name}! You are ${person.age} years old.`;
+}
+
+console.log(greetPerson(user));
+
+// ===== OPTIONAL PROPERTIES =====
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description?: string;  // Optional (? দিয়ে বোঝায়)
+  inStock?: boolean;
+}
+
+let product1: Product = {
+  id: 1,
+  name: "Laptop",
+  price: 50000
+  // description না দিলেও problem নেই
+};
+
+let product2: Product = {
+  id: 2,
+  name: "Mouse",
+  price: 500,
+  description: "Wireless mouse",
+  inStock: true
+};
+
+console.log(product1);
+console.log(product2);
+
+============practice 3: Union Types===========
+day1-union.ts file বানান:
+// ===== UNION TYPES =====
+// একটা variable একাধিক type হতে পারে
+
+// Example 1: Simple Union
+let id: number | string;
+
+id = 101;        // Valid
+console.log(id);
+
+id = "ABC123";   // Also valid
+console.log(id);
+
+// id = true;    // Error: boolean is not assignable
+
+
+// Example 2: Function with Union type
+function printId(id: number | string): void {
+  console.log("Your ID is:", id);
+}
+
+printId(101);
+printId("XYZ789");
+
+
+// Example 3: Union with Type narrowing
+function formatId(id: number | string): string {
+  if (typeof id === "number") {
+    return `ID-${id.toString().padStart(5, '0')}`;
+  } else {
+    return `ID-${id.toUpperCase()}`;
+  }
+}
+
+console.log(formatId(42));        // ID-00042
+console.log(formatId("abc123"));  // ID-ABC123
+
+
+// Example 4: Literal Types (specific values only)
+type Status = "pending" | "approved" | "rejected";
+
+function updateStatus(status: Status): void {
+  console.log(`Status updated to: ${status}`);
+}
+
+updateStatus("approved");  // Valid
+updateStatus("pending");   // Valid
+// updateStatus("failed"); // Error: not in the allowed values
+
+===========Practice 4: Type Aliases============
+day1-types.ts file বানান:
+
+// ===== TYPE ALIASES =====
+
+// Type alias দিয়ে custom type বানানো যায়
+type User = {
+  id: number;
+  username: string;
+  email: string;
+  isActive: boolean;
+};
+
+let admin: User = {
+  id: 1,
+  username: "admin",
+  email: "admin@example.com",
+  isActive: true
+};
+
+// Type alias with Union
+type ID = number | string;
+type Status = "active" | "inactive" | "banned";
+
+type UserAccount = {
+  id: ID;
+  username: string;
+  status: Status;
+  createdAt: Date;
+};
+
+let account: UserAccount = {
+  id: "USER_001",
+  username: "johndoe",
+  status: "active",
+  createdAt: new Date()
+};
+
+console.log(account);
+
+// Function with Type alias
+type Point = {
+  x: number;
+  y: number;
+};
+
+function calculateDistance(p1: Point, p2: Point): number {
+  return Math.sqrt(
+    Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)
+  );
+}
+
+console.log(calculateDistance({ x: 0, y: 0 }, { x: 3, y: 4 })); // 5
+
+===================Done now assignment ==========
+
+আজকের Assignment (Day 1):
+এই Programs  গুলো লিখুন এবং  test  করুনঃ
+
+==========Task 1: Student Management ============
+// Create an interface for Student
+// Properties: id, name, age, grade, subjects (array of strings)
+// Create 3 student objects
+// Write a function that takes a student and returns a formatted string
+
+=========Task 2: Product Inventory===========
+// Create a type for Product
+// Properties: id, name, price, category, inStock (optional)
+// Create an array of 5 products
+// Write a function to filter products by category
+// Write a function to calculate total price of all products
+=========Task 3: User Authentication============
+
+// Create a type for UserRole: "admin" | "user" | "guest"
+// Create an interface for AuthUser with id, username, role
+// Write a function that checks if user has admin access
+// Write a function that returns different messages based on role
+=======================
+
+
+আজকের কাজ শেষ।
+✅ Setup complete হয়েছে?
+✅ সব practice files run হচ্ছে?
+✅ Concepts clear আছে?
+✅ Assignment শুরু করেছেন?
+
+Assignment complete করার পর আমাকে code পাঠান, আমি check করে দেব এবং তারপর Day 2 এর lesson দেব!
+এভাবে প্রতিদিন একটা করে lesson complete করবেন। প্রতিদিন 2-3 ঘণ্টা practice করলে 7 দিনে expert হয়ে যাবেন! 🚀

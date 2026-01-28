@@ -1,0 +1,22 @@
+আজকে শুরু করি - Day 1: TypeScript Basics
+============Part 1: Setup (5 minutes)============
+>একটা folder বানান typescript-practice:
+
+`mkdir typescript-practice
+cd typescript-practice
+npm init -y
+npm install -g typescript`
+
+> একটা tsconfig.json file বানানঃ
+
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+
