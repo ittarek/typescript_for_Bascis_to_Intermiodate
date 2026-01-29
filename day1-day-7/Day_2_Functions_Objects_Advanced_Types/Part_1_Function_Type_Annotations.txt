@@ -1,0 +1,151 @@
+Day 2: Functions, Objects & Advanced Types
+আজকে আমরা শিখব functions এবং complex data structures নিয়ে কাজ করা।
+
+Part 1: Function Type Annotations
+Theory:
+TypeScript এ functions এর parameters এবং return type define করতে হয়।
+Practice 1: Basic Functions
+day2-functions.ts file বানান:
+typescript// ===== FUNCTION TYPE ANNOTATIONS =====
+
+// 1. Simple function with types
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+console.log(add(5, 3)); // 8
+// console.log(add(5, "3")); // Error: string is not assignable to number
+
+// 2. Function with string return
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet("John"));
+
+// 3. Function with no return (void)
+function logMessage(message: string): void {
+  console.log(message);
+  // return করে না
+}
+
+logMessage("This is a log message");
+
+// 4. Function with multiple parameters
+function createUser(name: string, age: number, isActive: boolean): string {
+  return `User: ${name}, Age: ${age}, Active: ${isActive}`;
+}
+
+console.log(createUser("Alice", 25, true));
+
+// 5. Arrow function with types
+const multiply = (x: number, y: number): number => {
+  return x * y;
+};
+
+console.log(multiply(4, 5)); // 20
+
+// Short arrow function
+const square = (n: number): number => n * n;
+console.log(square(6)); // 36
+Compile & Run:
+bashtsc day2-functions.ts
+node day2-functions.js
+
+Practice 2: Optional & Default Parameters
+day2-optional-params.ts file বানান:
+typescript// ===== OPTIONAL & DEFAULT PARAMETERS =====
+
+// 1. Optional Parameter (? দিয়ে)
+function greetUser(name: string, age?: number): string {
+  if (age) {
+    return `Hello ${name}, you are ${age} years old`;
+  }
+  return `Hello ${name}`;
+}
+
+console.log(greetUser("John"));           // age ছাড়া
+console.log(greetUser("Jane", 25));       // age সহ
+
+// 2. Default Parameter
+function calculatePrice(price: number, tax: number = 0.15): number {
+  return price + (price * tax);
+}
+
+console.log(calculatePrice(100));      // 115 (default 15% tax)
+console.log(calculatePrice(100, 0.20)); // 120 (20% tax)
+
+// 3. Multiple optional parameters
+function createPost(
+  title: string,
+  content: string,
+  author?: string,
+  published?: boolean
+): string {
+  let post = `Title: ${title}\nContent: ${content}`;
+  
+  if (author) {
+    post += `\nAuthor: ${author}`;
+  }
+  
+  if (published !== undefined) {
+    post += `\nPublished: ${published}`;
+  }
+  
+  return post;
+}
+
+console.log(createPost("TypeScript Guide", "Learning TS is fun"));
+console.log(createPost("React Tutorial", "Building apps", "John Doe", true));
+
+// 4. Optional এবং Default একসাথে
+function sendEmail(
+  to: string,
+  subject: string = "No Subject",
+  cc?: string
+): string {
+  let message = `To: ${to}\nSubject: ${subject}`;
+  if (cc) {
+    message += `\nCC: ${cc}`;
+  }
+  return message;
+}
+
+console.log(sendEmail("user@example.com"));
+console.log(sendEmail("user@example.com", "Important", "admin@example.com"));
+
+Practice 3: Rest Parameters
+day2-rest-params.ts file বানান:
+typescript// ===== REST PARAMETERS =====
+
+// 1. Sum of multiple numbers
+function sum(...numbers: number[]): number {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(sum(1, 2, 3));           // 6
+console.log(sum(10, 20, 30, 40));    // 100
+console.log(sum(5));                 // 5
+
+// 2. Concatenate strings
+function concatenate(separator: string, ...words: string[]): string {
+  return words.join(separator);
+}
+
+console.log(concatenate(" ", "Hello", "World"));
+console.log(concatenate("-", "TypeScript", "is", "awesome"));
+
+// 3. Find maximum
+function findMax(...numbers: number[]): number {
+  return Math.max(...numbers);
+}
+
+console.log(findMax(5, 10, 3, 8, 15)); // 15
+
+// 4. Mixed parameters (normal + rest)
+function logInfo(category: string, ...messages: string[]): void {
+  console.log(`[${category}]`);
+  messages.forEach(msg => console.log(`  - ${msg}`));
+}
+
+logInfo("ERROR", "File not found", "Permission denied", "Network error");

@@ -1,0 +1,162 @@
+Part 2: Complex Objects & Arrays
+Practice 4: Object Types & Interfaces
+day2-objects.ts file বানান:
+typescript// ===== COMPLEX OBJECTS =====
+
+// 1. Nested Object Interface
+interface Address {
+  street: string;
+  city: string;
+  country: string;
+  zipCode?: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  address: Address;  // Nested object
+  isActive: boolean;
+}
+
+let user1: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+  address: {
+    street: "123 Main St",
+    city: "Dhaka",
+    country: "Bangladesh"
+  },
+  isActive: true
+};
+
+console.log(user1);
+console.log(user1.address.city); // Dhaka
+
+// 2. Array of Objects
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+let products: Product[] = [
+  { id: 1, name: "Laptop", price: 50000, inStock: true },
+  { id: 2, name: "Mouse", price: 500, inStock: true },
+  { id: 3, name: "Keyboard", price: 1500, inStock: false }
+];
+
+// Function যা array of objects নেয়
+function getTotalPrice(products: Product[]): number {
+  return products.reduce((total, product) => total + product.price, 0);
+}
+
+console.log("Total Price:", getTotalPrice(products)); // 52000
+
+// Filter in-stock products
+function getInStockProducts(products: Product[]): Product[] {
+  return products.filter(p => p.inStock);
+}
+
+console.log("In Stock:", getInStockProducts(products));
+
+// 3. Object with methods
+interface Calculator {
+  add: (a: number, b: number) => number;
+  subtract: (a: number, b: number) => number;
+  multiply: (a: number, b: number) => number;
+}
+
+let calc: Calculator = {
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b,
+  multiply: (a, b) => a * b
+};
+
+console.log(calc.add(10, 5));      // 15
+console.log(calc.subtract(10, 5)); // 5
+console.log(calc.multiply(10, 5)); // 50
+
+Practice 5: Type Assertions & Advanced Types
+day2-advanced-types.ts file বানান:
+typescript// ===== TYPE ASSERTIONS =====
+
+// 1. Type Assertion - as keyword
+let someValue: any = "Hello TypeScript";
+let strLength: number = (someValue as string).length;
+console.log(strLength); // 16
+
+// 2. Type Assertion with DOM (example concept)
+// let inputElement = document.getElementById("username") as HTMLInputElement;
+// inputElement.value = "John";
+
+// 3. Union Type with Type Guards
+function processValue(value: string | number): string {
+  if (typeof value === "string") {
+    return value.toUpperCase();
+  } else {
+    return value.toFixed(2);
+  }
+}
+
+console.log(processValue("hello"));  // HELLO
+console.log(processValue(3.14159));  // 3.14
+
+// ===== INTERSECTION TYPES =====
+
+// Intersection - দুইটা type একসাথে
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Employee {
+  employeeId: number;
+  department: string;
+}
+
+type Staff = Person & Employee;  // Both properties combined
+
+let staff: Staff = {
+  name: "Alice",
+  age: 30,
+  employeeId: 12345,
+  department: "Engineering"
+};
+
+console.log(staff);
+
+// ===== READONLY & OPTIONAL =====
+
+interface Config {
+  readonly apiKey: string;  // Cannot be changed after initialization
+  timeout?: number;         // Optional
+  retries: number;
+}
+
+let config: Config = {
+  apiKey: "abc123xyz",
+  retries: 3
+};
+
+// config.apiKey = "new-key"; // Error: Cannot assign to 'apiKey' because it is a read-only property
+config.retries = 5; // OK
+
+console.log(config);
+
+// ===== TYPE ALIASES WITH COMPLEX TYPES =====
+
+type ID = string | number;
+type Callback = (data: string) => void;
+
+function fetchData(id: ID, callback: Callback): void {
+  // Simulate data fetching
+  setTimeout(() => {
+    callback(`Data for ID: ${id}`);
+  }, 1000);
+}
+
+fetchData(123, (data) => console.log(data));
+fetchData("ABC", (data) => console.log(data));

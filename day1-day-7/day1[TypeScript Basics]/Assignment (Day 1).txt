@@ -1,0 +1,21 @@
+আজকের Assignment (Day 1):
+এই Programs  গুলো লিখুন এবং  test  করুনঃ
+
+==========Task 1: Student Management ============
+// Create an interface for Student
+// Properties: id, name, age, grade, subjects (array of strings)
+// Create 3 student objects
+// Write a function that takes a student and returns a formatted string
+
+=========Task 2: Product Inventory===========
+// Create a type for Product
+// Properties: id, name, price, category, inStock (optional)
+// Create an array of 5 products
+// Write a function to filter products by category
+// Write a function to calculate total price of all products
+=========Task 3: User Authentication============
+
+// Create a type for UserRole: "admin" | "user" | "guest"
+// Create an interface for AuthUser with id, username, role
+// Write a function that checks if user has admin access
+// Write a function that returns different messages based on role

@@ -1,0 +1,36 @@
+Task 1: Library Management System
+typescript// Create interfaces for:
+// 1. Book (id, title, author, year, isAvailable)
+// 2. Library (name, books array, location)
+
+// Write functions:
+// - addBook(library, book): void
+// - findBooksByAuthor(library, author): Book[]
+// - getAvailableBooks(library): Book[]
+// - borrowBook(library, bookId): boolean
+
+// Create a library with 5 books and test all functions
+Task 2: E-commerce Cart
+typescript// Create interfaces:
+// 1. CartItem (productId, name, price, quantity)
+// 2. Cart (items: CartItem[], discount?: number)
+
+// Write functions:
+// - addToCart(cart, item): void
+// - removeFromCart(cart, productId): void
+// - calculateTotal(cart): number (apply discount if exists)
+// - getItemCount(cart): number
+
+// Test with sample data
+Task 3: Employee Management
+typescript// Create types:
+// 1. Department: "HR" | "Engineering" | "Sales" | "Marketing"
+// 2. Employee (id, name, department, salary, joiningDate)
+
+// Write functions with proper types:
+// - getEmployeesByDepartment(employees, dept): Employee[]
+// - calculateAverageSalary(employees): number
+// - getEmployeeInfo(employee): string (formatted output)
+// - Optional: giveRaise(employee, percentage): Employee (returns new employee with updated salary)
+
+// Create 6-7 employees and test
