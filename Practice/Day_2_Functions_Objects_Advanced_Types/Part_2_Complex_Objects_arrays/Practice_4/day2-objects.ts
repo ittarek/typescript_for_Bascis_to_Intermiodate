@@ -42,7 +42,27 @@ let products: Product[] = [
 function getTotalPrice(products: Product[]): number {
   return products.reduce((total, product) => total + product.price, 0);
 }
-console.log("Total Price",getTotalPrice(products));
-
+console.log('Total Price', getTotalPrice(products));
 
 // Filter in Stock products
+function getInStockProducts(products: Product[]): Product[] {
+  return products.filter(p => p.inStock);
+}
+console.log('In Stock', getInStockProducts(products));
+
+// 3. object with method
+interface Calculator {
+  add: (a: number, b: number) => number;
+  subtract: (a: number, b: number) => number;
+  multiply: (a: number, b: number) => number;
+}
+
+let calc: Calculator = {
+  add : (a, b) => a + b,
+  subtract : (a, b) => a - b,
+      multiply : (a, b) => a * b
+}
+
+console.log(calc.add(1,2));
+console.log(calc.subtract(3,2));
+console.log(calc.multiply(1,2));
